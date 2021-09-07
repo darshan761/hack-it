@@ -40,16 +40,21 @@ export default class HomePage extends React.Component {
   }
 
   onClickData(seat) {
-    if(this.state.selectedSeats.indexOf(seat) > -1 ) {
-      this.setState({
-        availableSeats: this.state.availableSeats.concat(seat),
-        selectedSeats: this.state.selectedSeats.filter(res => res !== seat)
-      })
-    } else {
-      this.setState({
-        selectedSeats: this.state.selectedSeats.concat(seat),
-        availableSeats: this.state.availableSeats.filter(res => res !== seat)
-      })
+    if(this.state.selectedSeats.length > 7){
+        alert("Cannot select more than 8 seats")
+    }
+    else{
+      if(this.state.selectedSeats.indexOf(seat) > -1 ) {
+        this.setState({
+          availableSeats: this.state.availableSeats.concat(seat),
+          selectedSeats: this.state.selectedSeats.filter(res => res !== seat)
+        })
+      } else {
+        this.setState({
+          selectedSeats: this.state.selectedSeats.concat(seat),
+          availableSeats: this.state.availableSeats.filter(res => res !== seat)
+        })
+      }
     }
   }
 
@@ -74,48 +79,76 @@ export default class HomePage extends React.Component {
     });
   }
   reserved(seat){
-    alert("already booked")
+    alert(seat.rowName+seat.number+" is already booked! select another seat.")
   }
 
   render() {
     return (
         <div>
-            <div className='Container'>
+            <div className='container'>
+              <div class="row">
+                <div class="col-sm-7">
+                  <div class='screen'>
+                    <center>SCREEN</center>
+                    <hr/> 
+                  </div>
         {   
         Object.keys(this.state.rowToSeatMap).map(key => (
-            <div >
+          
+              <div class="row row-inner">
+                 <div className='seat-row'>
+                  {key}
+                </div>
                 { 
                     this.state.rowToSeatMap[key].map((seat) => (
-                      seat.status === "AVAILABLE" ?
-                    <div className={this.state.selectedSeats.indexOf(seat) > -1? 'seat-reserved': 'seat-available'} key={seat.seatId} onClick = {e => this.onClickData(seat)}>
+
+                    seat.status === "AVAILABLE" ?
+                    <div className={this.state.selectedSeats.indexOf(seat) > -1? 'seat-selected': 'seat-available'} key={seat.seatId} onClick = {e => this.onClickData(seat)}>
                     {seat.rowName}{seat.number} </div>
                     :
-                    
-                    <div className='seat-booked' key={seat.seatId} onClick = {e => this.reserved(seat)}>
+                    <div className='seat-occupied' key={seat.seatId} onClick = {e => this.reserved(seat)}>
                     {seat.rowName}{seat.number} </div>
                   
                     ))
                 }
-            </div>
+                </div>
         ))
        }
+        <div class='legend'>
+          <hr/>
+          <div className='row row-inner'>
+            <div className='seat-available'/> AVAILABLE
+          </div>
+          <div className='row row-inner'>
+            <div className='seat-selected'/> SELECTED
+          </div>
+          <div className='row row-inner'>
+            <div className='seat-occupied'/> OCCUPIED
+          </div>
+       </div>
         </div>
-        <SelectedList selected = { this.state.selectedSeats } />
-        <button onClick={this.clearSelection.bind(this)}>
-          Clear
-        </button>
-        <button onClick={this.togglePopup.bind(this)}>
-          Book
-        </button>
-        {this.state.showPopup ? 
-          <Popup
-            text='Confirm Details'
-            selected= {this.state.selectedSeats }
-            closePopup={this.togglePopup.bind(this)}
-          />
-          : null
-        }
-        </div> 
+        <div  class="col-sm-5">
+          <SelectedList selected = { this.state.selectedSeats } />
+          <hr/>
+          <button disabled={this.state.selectedSeats.length ===0} onClick={this.clearSelection.bind(this)}>
+            CLEAR
+          </button>
+          <button disabled={this.state.selectedSeats.length ===0} onClick={this.togglePopup.bind(this)}>
+            BOOK
+          </button>
+         
+          
+          {this.state.showPopup ? 
+            <Popup
+              selected= {this.state.selectedSeats }
+              closePopup={this.togglePopup.bind(this)}
+            />
+            : null
+          }
+              </div>
+            </div> 
+          </div>
+        </div>
     )
   }
 }
@@ -123,11 +156,15 @@ class SelectedList extends React.Component {
   render() {
     return(
       <div className="right">
-        <h4>Selected Seats: ({this.props.selected.length})</h4>
-        <ul>
-          { this.props.selected.map(seat => <li key={seat} >{seat.rowName}{seat.number}</li>) }
-        </ul>
-        <h4> Total Price: {this.props.selected.reduce((acc,seat) =>  acc = acc + seat.price , 0 )}</h4>
+          <h4> WHERE TO SIT? </h4>
+          
+            { this.props.selected.map(seat => <div className='seat-selected' key={seat} >{seat.rowName}{seat.number}</div>) }
+          
+          <hr/>
+          <div >
+            <div className='ticket-details'> <i class="fa fa-ticket" aria-hidden="true" ></i> x{this.props.selected.length}</div>
+            <div className='ticket-details'> <i class="fa fa-usd" aria-hidden="true"></i> {this.props.selected.reduce((acc,seat) =>  acc = acc + seat.price , 0 )} </div>
+          </div>
       </div>
     )
   }
@@ -163,24 +200,32 @@ class Popup extends React.Component {
     return (
       <div className='popup'>
         <div className='popup_inner'>
-          <h1>{this.props.text}</h1>
+          <h3>Enter Details</h3>
           <form onSubmit={this.handleSubmit}>
-          <label>
-            Name:
-            <input type="text" name="name" minlength="4" required onChange={this.handleChange}/>
-          </label>
-          <label>
-            Email:
-            <input type="email" name="email" required onChange={this.handleChange} />
-          </label>
-          <label>
-            Mobile:
+          <div className="form-group">
+         
+            <input type="text" name="name" minlength="4" placeholder="Name" required onChange={this.handleChange}/>
+        
+          </div>
+          <div className="form-group">
+          
+            <input type="email" name="email" placeholder="Email" required onChange={this.handleChange} />
+         
+          </div>
+          <div className="form-group">
+          
             <input type="number"
-            name="mobileNumber" required onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
+            name="mobileNumber" filter="[^0-9]" minlength="10" maxLength="10" placeholder="Mobile No" required onChange={this.handleChange} />
+         
+         </div>
+         <div className="form-group">
+          <input className="btn btn-primary" type="submit" value="BOOK" />
+         </div>
+         <div className="form-group">
+          <input className="btn btn-primary" onClick={this.props.closePopup} value="BACK" />
+         </div>
+
         </form>
-        <button onClick={this.props.closePopup}>BACK</button>
         </div>
       </div>
     );

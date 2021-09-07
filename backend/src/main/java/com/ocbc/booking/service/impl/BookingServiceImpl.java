@@ -39,10 +39,18 @@ public class BookingServiceImpl implements BookingService {
         if( existingUser != null){
             logger.info("User {} already exists...updating details", existingUser.getName());
             bookingDTO.getUser().setUserId(existingUser.getUserId());
+            bookingDTO.getSeats().addAll(existingUser.getSeats());
+            bookingDTO.getUser().setSeats(bookingDTO.getSeats());
+            logger.info("Saving user in the database...{}", bookingDTO.getUser());
+            userRepository.save(bookingDTO.getUser());
         }
-        logger.info("Saving user in the database");
-        bookingDTO.getUser().setSeats(bookingDTO.getSeats());
-        userRepository.save(bookingDTO.getUser());
+        else{
+            logger.info("Saving user in the database...{}", bookingDTO.getUser());
+            User savedUser = userRepository.save(bookingDTO.getUser());
+            savedUser.setSeats(bookingDTO.getSeats());
+            logger.info("Saving seat mapping for the user in the database...");
+            userRepository.save(savedUser);
+        }
         for(Seat seat: bookingDTO.getSeats()){
             logger.info("Updating seat {}{} status to BOOKED", seat.getRowName(), seat.getNumber());
             seat.setStatus("BOOKED");

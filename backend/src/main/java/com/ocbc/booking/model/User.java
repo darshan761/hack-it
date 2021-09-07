@@ -13,7 +13,7 @@ public class User {
     private String mobileNumber;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private List<Seat> seats;
 
     public String getEmail() {
