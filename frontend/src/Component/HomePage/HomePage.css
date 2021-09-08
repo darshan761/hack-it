@@ -4,6 +4,11 @@
     margin-top: 30px;
 }
 
+.header {
+    text-align: center;
+    padding: 10px;
+}
+
 .screen {
     width: 50%;
     margin: 0 auto;
@@ -150,6 +155,10 @@ input {
     background: white;
     text-align: center;
     padding: 20px;
+}
+
+img {
+    width: 20%;
 }
 
 

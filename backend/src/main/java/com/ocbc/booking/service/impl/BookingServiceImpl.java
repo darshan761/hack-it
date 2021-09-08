@@ -1,8 +1,8 @@
 package com.ocbc.booking.service.impl;
 
 import com.ocbc.booking.constant.MailConstants;
-import com.ocbc.booking.controller.BookingController;
 import com.ocbc.booking.dto.BookingDTO;
+import com.ocbc.booking.enums.SeatStatus;
 import com.ocbc.booking.model.Mail;
 import com.ocbc.booking.model.Seat;
 import com.ocbc.booking.model.User;
@@ -36,27 +36,26 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public void bookSeats(BookingDTO bookingDTO) {
         User existingUser = userRepository.findUserByEmail(bookingDTO.getUser().getEmail());
-        if( existingUser != null){
+        if (existingUser != null) {
             logger.info("User {} already exists...updating details", existingUser.getName());
             bookingDTO.getUser().setUserId(existingUser.getUserId());
             bookingDTO.getSeats().addAll(existingUser.getSeats());
             bookingDTO.getUser().setSeats(bookingDTO.getSeats());
             logger.info("Saving user in the database...{}", bookingDTO.getUser());
             userRepository.save(bookingDTO.getUser());
-        }
-        else{
-            logger.info("Saving user in the database...{}", bookingDTO.getUser());
+        } else {
+            logger.info("Saving the new user in the database...{}", bookingDTO.getUser());
             User savedUser = userRepository.save(bookingDTO.getUser());
             savedUser.setSeats(bookingDTO.getSeats());
             logger.info("Saving seat mapping for the user in the database...");
             userRepository.save(savedUser);
         }
-        for(Seat seat: bookingDTO.getSeats()){
+        bookingDTO.getSeats().forEach(seat -> {
             logger.info("Updating seat {}{} status to BOOKED", seat.getRowName(), seat.getNumber());
-            seat.setStatus("BOOKED");
+            seat.setStatus(SeatStatus.BOOKED.toString());
             seatRepository.save(seat);
-        }
-        logger.info("Sending email to user @ {}",bookingDTO.getUser().getEmail());
+        });
+        logger.info("Sending email to user @ {}", bookingDTO.getUser().getEmail());
         sendEmail(bookingDTO);
     }
 
@@ -77,5 +76,19 @@ public class BookingServiceImpl implements BookingService {
         List<User> users = new ArrayList<>();
         userRepository.findAll().forEach(users::add);
         return users;
+    }
+
+    @Override
+    public void deleteBookingForAllUsers() {
+        logger.info("Removing seat mapping from users");
+        getAllUsers().forEach(user -> {
+            user.setSeats(null);
+            userRepository.save(user);
+        });
+        logger.info("Updating seats status to available");
+        getAllSeats().forEach(seat -> {
+            seat.setStatus(SeatStatus.AVAILABLE.toString());
+            seatRepository.save(seat);
+        });
     }
 }
