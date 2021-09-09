@@ -65,28 +65,14 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Seat> getAllSeats() {
-        List<Seat> seats = new ArrayList<>();
-        seatRepository.findAll().forEach(seats::add);
-        return seats;
-    }
-
-    @Override
-    public List<User> getAllUsers() {
-        List<User> users = new ArrayList<>();
-        userRepository.findAll().forEach(users::add);
-        return users;
-    }
-
-    @Override
     public void deleteBookingForAllUsers() {
         logger.info("Removing seat mapping from users");
-        getAllUsers().forEach(user -> {
+        userRepository.findAll().forEach(user -> {
             user.setSeats(null);
             userRepository.save(user);
         });
         logger.info("Updating seats status to available");
-        getAllSeats().forEach(seat -> {
+        seatRepository.findAll().forEach(seat -> {
             seat.setStatus(SeatStatus.AVAILABLE.toString());
             seatRepository.save(seat);
         });

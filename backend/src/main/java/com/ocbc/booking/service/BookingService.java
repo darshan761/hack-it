@@ -8,10 +8,5 @@ import java.util.List;
 
 public interface BookingService {
     void bookSeats(BookingDTO bookingDTO);
-
-    List<Seat> getAllSeats();
-
-    List<User> getAllUsers();
-
     void deleteBookingForAllUsers();
 }
