@@ -27,15 +27,15 @@ public class SeatController {
     @ApiOperation("Get all the seats")
     @GetMapping("")
     public List<Seat> getAllSeats() {
-        logger.info("/seats - getAllSeats request received");
+        logger.info("/seats - get sll seats request received");
         return seatService.getAllSeats();
     }
 
     @CrossOrigin
-    @ApiOperation("Get seat by userId")
+    @ApiOperation("Get seat by Id")
     @GetMapping("/{id}")
     public Seat getSeatById(@PathVariable int id) {
-        logger.info("/seats/{} - getAllSeats request received",id);
+        logger.info("/seats/{} - get seat by Id request received",id);
         return seatService.getSeatById(id);
     }
 

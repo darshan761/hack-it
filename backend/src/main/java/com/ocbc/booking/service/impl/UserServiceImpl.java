@@ -22,22 +22,26 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<>();
+        logger.info("Getting users from the database");
         userRepository.findAll().forEach(users::add);
         return users;
     }
 
     @Override
     public User getUserById(int id) {
+        logger.info("Getting user by id {} from the database", id);
         return userRepository.findById(id).get();
     }
 
     @Override
     public void saveUser(User user) {
+        logger.info("Saving {} from the database", user);
         userRepository.save(user);
     }
 
     @Override
     public void deleteUserById(int id) {
+        logger.info("Deleting user id {} from the database", id);
         userRepository.deleteById(id);
     }
 }

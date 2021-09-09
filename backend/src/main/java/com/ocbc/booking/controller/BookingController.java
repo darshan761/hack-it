@@ -26,14 +26,14 @@ public class BookingController {
     @ApiOperation("Book seats for users")
     @PostMapping("")
     public void bookSeatForUser(@RequestBody BookingDTO bookingDTO) {
-        logger.info("/book  - bookSeatForUser request received");
+        logger.info("/book  - book seat for user request received");
         bookingService.bookSeats(bookingDTO);
     }
 
     @ApiOperation("To reset/delete bookings of all users")
     @PutMapping("/reset")
     public void deleteBookingForAllUsers() {
-        logger.info("/book/reset/ - deleteBookingForAllUsers request received");
+        logger.info("/book/reset/ - delete booking for all users request received");
         bookingService.deleteBookingForAllUsers();
     }
 }

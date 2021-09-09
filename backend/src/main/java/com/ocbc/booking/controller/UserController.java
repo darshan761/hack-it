@@ -27,7 +27,7 @@ public class UserController {
     @ApiOperation("Get all the users")
     @GetMapping("")
     public List<User> getAllUsers() {
-        logger.info("/users - getAllUsers request received");
+        logger.info("/users - get all users request received");
         return userService.getAllUsers();
     }
 
@@ -35,7 +35,7 @@ public class UserController {
     @ApiOperation("Get user by userId")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) {
-        logger.info("/users/{} - getAllSeats request received",id);
+        logger.info("/users/{} - get user by id request received",id);
         return userService.getUserById(id);
     }
 
