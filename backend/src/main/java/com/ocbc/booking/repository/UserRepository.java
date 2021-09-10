@@ -1,6 +1,6 @@
 package com.ocbc.booking.repository;
 
-import com.ocbc.booking.constant.Queries;
+import com.ocbc.booking.util.Queries;
 import com.ocbc.booking.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

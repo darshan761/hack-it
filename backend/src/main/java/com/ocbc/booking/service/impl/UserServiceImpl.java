@@ -1,5 +1,6 @@
 package com.ocbc.booking.service.impl;
 
+import com.ocbc.booking.exception.UserNotFoundException;
 import com.ocbc.booking.model.Seat;
 import com.ocbc.booking.model.User;
 import com.ocbc.booking.repository.UserRepository;
@@ -28,9 +29,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUserById(int id) {
+    public User getUserById(int id) throws UserNotFoundException {
         logger.info("Getting user by id {} from the database", id);
-        return userRepository.findById(id).get();
+        if(!userRepository.findById(id).isPresent()){
+            logger.error("No user with id {} found", id);
+            throw new UserNotFoundException("No user with id "+ id + " found");
+        }
+        else{
+            return userRepository.findById(id).get();
+        }
     }
 
     @Override

@@ -13,8 +13,8 @@ export default class SelectionSection extends React.Component {
             
             <hr/>
             <div >
-              <div className="ticket-details"> <i class="fa fa-ticket" aria-hidden="true" ></i> x{this.props.selected.length}</div>
-              <div className="ticket-details"> <i class="fa fa-usd" aria-hidden="true"></i> {this.props.selected.reduce((acc,seat) =>  acc = acc + seat.price , 0 )} </div>
+              <div className="ticket-details"> <i className="fa fa-ticket" aria-hidden="true" ></i> x{this.props.selected.length}</div>
+              <div className="ticket-details"> <i className="fa fa-usd" aria-hidden="true"></i> {this.props.selected.reduce((acc,seat) =>  acc = acc + seat.price , 0 )} </div>
             </div>
         </div>
       )

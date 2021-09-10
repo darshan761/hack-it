@@ -1,5 +1,7 @@
 package com.ocbc.booking.service.impl;
 
+import com.ocbc.booking.exception.SeatNotFoundException;
+import com.ocbc.booking.exception.UserNotFoundException;
 import com.ocbc.booking.model.Seat;
 import com.ocbc.booking.model.User;
 import com.ocbc.booking.repository.SeatRepository;
@@ -29,9 +31,15 @@ public class SeatServiceImpl implements SeatService {
     }
 
     @Override
-    public Seat getSeatById(int id) {
+    public Seat getSeatById(int id) throws SeatNotFoundException{
         logger.info("Getting seat by id {} from the database", id);
-        return seatRepository.findById(id).get();
+        if(!seatRepository.findById(id).isPresent()){
+            logger.error("No seat with id {} found", id);
+            throw new SeatNotFoundException("No seat with id "+ id + " found");
+        }
+        else{
+            return seatRepository.findById(id).get();
+        }
     }
 
     @Override

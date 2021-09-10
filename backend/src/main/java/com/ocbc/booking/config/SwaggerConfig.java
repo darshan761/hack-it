@@ -1,5 +1,6 @@
 package com.ocbc.booking.config;
 
+import com.ocbc.booking.util.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -20,11 +21,11 @@ public class SwaggerConfig {
     public Docket bookingApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.ocbc.booking"))
                 .paths(PathSelectors.any())
                 .build()
-                .tags(new Tag(BOOKING_TAG, "REST APIs for booking seats"),
-                        new Tag(SEAT_TAG, "REST APIs for seats"),
-                        new Tag(USER_TAG, "REST APIs for users"));
+                .tags(new Tag(BOOKING_TAG, Constants.BOOKING_TAG_DESC),
+                        new Tag(SEAT_TAG, Constants.SEAT_TAG_DESC),
+                        new Tag(USER_TAG, Constants.USER_TAG_DESC));
     }
 }
