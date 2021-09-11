@@ -1,6 +1,8 @@
 package com.ocbc.booking.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ocbc.booking.dto.BookingDTO;
+import com.ocbc.booking.exception.JSONParseException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -18,5 +20,13 @@ public class Utils {
         return new StringBuilder().append("Hi " + name + ",\n")
                 .append("Your booking ( " + seats + " seats " + bookedSeatList + ", SGD " + totalPrice + ") is confirmed at " + LocalDateTime.now().format(formatter) + ".\n")
                 .append("Enjoy your Movie!\n").toString();
+    }
+
+    public static String getJsonString(final Object obj) throws JSONParseException {
+        try {
+            return new ObjectMapper().writeValueAsString(obj);
+        } catch (Exception e) {
+            throw new JSONParseException(e.getMessage());
+        }
     }
 }

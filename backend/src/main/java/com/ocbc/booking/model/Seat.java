@@ -12,6 +12,17 @@ public class Seat {
     private String status;
     private Double price;
 
+    public Seat() {
+    }
+
+    public Seat(int seatId, char rowName, int number, String status, Double price) {
+        this.seatId = seatId;
+        this.rowName = rowName;
+        this.number = number;
+        this.status = status;
+        this.price = price;
+    }
+
     public int getSeatId() {
         return seatId;
     }

@@ -16,6 +16,16 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Seat> seats;
 
+    public User() {
+    }
+
+    public User(int userId, String email, String name, String mobileNumber) {
+        this.userId = userId;
+        this.email = email;
+        this.name = name;
+        this.mobileNumber = mobileNumber;
+    }
+
     public String getEmail() {
         return email;
     }
