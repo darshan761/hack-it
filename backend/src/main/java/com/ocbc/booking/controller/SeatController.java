@@ -26,8 +26,7 @@ public class SeatController {
 
     @Autowired
     SeatService seatService;
-
-    @CrossOrigin
+    
     @ApiOperation("Get all the seats")
     @GetMapping("")
     public List<Seat> getAllSeats() {

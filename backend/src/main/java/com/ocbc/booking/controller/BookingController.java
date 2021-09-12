@@ -30,7 +30,6 @@ public class BookingController {
      * For booking seats for the user
      * @param bookingDTO - user and seats details from UI
      */
-    @CrossOrigin
     @ApiOperation("Book seats for users")
     @PostMapping("")
     public void bookSeatForUser(@RequestBody BookingDTO bookingDTO) {
