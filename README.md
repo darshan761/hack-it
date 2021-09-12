@@ -8,7 +8,7 @@ A Movie ticket booking sytem which allows user to book the seat.
 
 # Deployed Solution
 * Frontend - https://hack-it-frontend.herokuapp.com/
-* Backend - https://hack-it-backend.herokuapp.com/api/v1/
+<!-- * Backend - https://hack-it-backend.herokuapp.com/api/v1/ -->
 
 ## Installing on your local system
 ### Frontend 
