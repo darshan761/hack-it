@@ -20,6 +20,7 @@ public class SwaggerConfig {
     public static final String BOOKING_TAG = "BookingController";
     public static final String SEAT_TAG = "SeatController";
     public static final String USER_TAG = "UserController";
+    public static final String HOME_TAG = "HomeController";
 
     /**
      * @return config settings
@@ -33,6 +34,7 @@ public class SwaggerConfig {
                 .build()
                 .tags(new Tag(BOOKING_TAG, Constants.BOOKING_TAG_DESC),
                         new Tag(SEAT_TAG, Constants.SEAT_TAG_DESC),
-                        new Tag(USER_TAG, Constants.USER_TAG_DESC));
+                        new Tag(USER_TAG, Constants.USER_TAG_DESC),
+                        new Tag(HOME_TAG, Constants.HOME_TAG_DESC));
     }
 }
