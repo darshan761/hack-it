@@ -10,6 +10,10 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * For enabling Swagger for API documentation
+ * @author darshan
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -17,6 +21,9 @@ public class SwaggerConfig {
     public static final String SEAT_TAG = "SeatController";
     public static final String USER_TAG = "UserController";
 
+    /**
+     * @return config settings
+     */
     @Bean
     public Docket bookingApi() {
         return new Docket(DocumentationType.SWAGGER_2)

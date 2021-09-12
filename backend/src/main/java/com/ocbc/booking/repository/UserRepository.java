@@ -7,8 +7,17 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+/**
+ * For handling database operations for User entity.
+ * @author darshan
+ */
 @Repository
 public interface UserRepository extends CrudRepository<User,Integer> {
+    /**
+     * Get user from its unique email attribute
+     * @param email
+     * @return user if exists
+     */
     @Query(Queries.GET_USER_BY_EMAIl)
     User findUserByEmail(@Param("email") String email);
 }

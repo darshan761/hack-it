@@ -15,6 +15,10 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * For handling seat related operations.
+ * @author darshan
+ */
 @Service
 public class SeatServiceImpl implements SeatService {
     private static final Logger logger = LoggerFactory.getLogger(SeatServiceImpl.class);

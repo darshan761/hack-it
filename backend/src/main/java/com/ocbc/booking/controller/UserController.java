@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for handling user CRUD request
+ * @author darshan
+ */
 @RestController
 @RequestMapping(path = "/api/v1/users")
 @Api(tags = {SwaggerConfig.USER_TAG})
@@ -31,7 +35,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @CrossOrigin
     @ApiOperation("Get user by userId")
     @GetMapping("/{id}")
     public User getUserById(@PathVariable int id) {
@@ -39,7 +42,6 @@ public class UserController {
         return userService.getUserById(id);
     }
 
-    @CrossOrigin
     @ApiOperation("Save user")
     @PostMapping("")
     public void saveSeat(@RequestBody User user) {
@@ -47,7 +49,6 @@ public class UserController {
         userService.saveUser(user);
     }
 
-    @CrossOrigin
     @ApiOperation("Delete user by Id")
     @DeleteMapping("/{id}")
     public void deleteUserById(@PathVariable int id) {

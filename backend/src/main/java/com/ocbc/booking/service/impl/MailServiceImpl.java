@@ -7,6 +7,10 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+/**
+ * For sending Mail to users.
+ * @author darshan
+ */
 @Service
 public class MailServiceImpl implements MailService {
 

@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller for handling booking requests
+ * @author darshan
+ */
 @RestController
 @RequestMapping(path = "/api/v1/book")
 @Api(tags = {SwaggerConfig.BOOKING_TAG})
@@ -22,6 +26,10 @@ public class BookingController {
     @Autowired
     BookingService bookingService;
 
+    /**
+     * For booking seats for the user
+     * @param bookingDTO - user and seats details from UI
+     */
     @CrossOrigin
     @ApiOperation("Book seats for users")
     @PostMapping("")
@@ -30,6 +38,9 @@ public class BookingController {
         bookingService.bookSeats(bookingDTO);
     }
 
+    /**
+     * For removing all the bookings of all the users
+     */
     @ApiOperation("To reset/delete bookings of all users")
     @PutMapping("/reset")
     public void deleteBookingForAllUsers() {

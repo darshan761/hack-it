@@ -3,6 +3,10 @@ package com.ocbc.booking.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+/**
+ * Represents Seat entity
+ * @author darshan
+ */
 @Entity
 public class Seat {
     @Id

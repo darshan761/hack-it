@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for handling seat CRUD request
+ * @author darshan
+ */
 @RestController
 @RequestMapping(path = "/api/v1/seats")
 @Api(tags = {SwaggerConfig.SEAT_TAG})
@@ -31,7 +35,6 @@ public class SeatController {
         return seatService.getAllSeats();
     }
 
-    @CrossOrigin
     @ApiOperation("Get seat by Id")
     @GetMapping("/{id}")
     public Seat getSeatById(@PathVariable int id) {
@@ -39,7 +42,6 @@ public class SeatController {
         return seatService.getSeatById(id);
     }
 
-    @CrossOrigin
     @ApiOperation("Save seat")
     @PostMapping("")
     public void saveSeat(@RequestBody Seat seat) {
@@ -47,7 +49,6 @@ public class SeatController {
         seatService.saveSeat(seat);
     }
 
-    @CrossOrigin
     @ApiOperation("Delete seat by Id")
     @DeleteMapping("/{id}")
     public void deleteSeatById(@PathVariable int id) {

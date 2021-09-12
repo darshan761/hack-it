@@ -1,5 +1,10 @@
 package com.ocbc.booking.model;
 
+/**
+ * Represents Mail entity
+ * used for sending booking info to the user
+ * @author darshan
+ */
 public class Mail {
     private String recipient;
     private String subject;

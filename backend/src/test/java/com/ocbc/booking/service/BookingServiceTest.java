@@ -15,7 +15,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
@@ -27,6 +26,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Test for booking seats
+ * @author darshan
+ */
 @SpringBootTest
 public class BookingServiceTest {
 
@@ -59,6 +62,9 @@ public class BookingServiceTest {
         bookingDTO.setSeats(seats);
     }
 
+    /**
+     * Testing booking for existing user.
+     */
     @Test
     void whenSelectedSeatsForExistingUser_thenBookSeats() {
 
@@ -72,6 +78,9 @@ public class BookingServiceTest {
         verify(bookingService, times(1)).bookSeats(bookingDTO);
     }
 
+    /**
+     * Testing booking for new user.
+     */
     @Test
     void whenSelectedSeatsForNewUser_thenBookSeats() {
 
@@ -86,6 +95,9 @@ public class BookingServiceTest {
         verify(bookingService, times(1)).bookSeats(bookingDTO);
     }
 
+    /**
+     * Testing exception for already booked seat
+     */
     @Test
     void whenSelectedSeatsForAlreadyBookedSeat_thenThrowException() {
         bookingDTO.getSeats().clear();
@@ -101,6 +113,9 @@ public class BookingServiceTest {
         verify(bookingService, times(1)).bookSeats(bookingDTO);
     }
 
+    /**
+     * Testing removing booking for all users.
+     */
     @Test
     void whenRemoveSeatsForAllUsers_thenDeleteBooking() {
         bookingService.deleteBookingForAllUsers();

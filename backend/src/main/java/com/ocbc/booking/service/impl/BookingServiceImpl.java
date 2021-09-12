@@ -20,6 +20,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * Booking seats for the users.
+ *
+ * @author darshan
+ */
 @Service
 public class BookingServiceImpl implements BookingService {
 
@@ -34,28 +39,40 @@ public class BookingServiceImpl implements BookingService {
     @Autowired
     MailService mailService;
 
+    /**
+     * Book seats for user handling concurrency and covering below cases.
+     * case 1. User is already present - updating its details.
+     * case 2. User is new - saving to database.
+     * case 3. Seat is already booked - throwing message to user.
+     * @param bookingDTO
+     * @throws SeatAlreadyBookedException
+     */
     @Override
-    public void bookSeats(BookingDTO bookingDTO) throws SeatAlreadyBookedException{
-        synchronized(this) {
+    public void bookSeats(BookingDTO bookingDTO) throws SeatAlreadyBookedException {
+        // to prevent race condition for multiple requests
+        synchronized (this) {
+            // checking if the seats are AVAILABLE
             if (!isSeatAvailable(bookingDTO.getSeats())) {
                 logger.info("Seat already got booked!");
                 throw new SeatAlreadyBookedException("Seat already got booked by other user!");
             } else {
+                // checking for existing user
                 User existingUser = userRepository.findUserByEmail(bookingDTO.getUser().getEmail());
                 if (existingUser != null) {
                     logger.info("User {} already exists...updating details", existingUser.getName());
+                    // updating the user details for the existing userId
                     bookingDTO.getUser().setUserId(existingUser.getUserId());
-                    bookingDTO.getSeats().addAll(existingUser.getSeats());
+                    bookingDTO.getSeats().addAll(existingUser.getSeats()); // updating previous selected seats for the user else will be overriden when saved
                     bookingDTO.getUser().setSeats(bookingDTO.getSeats());
                     logger.info("Saving user in the database...{}", bookingDTO.getUser());
                     userRepository.save(bookingDTO.getUser());
-                    bookingDTO.getSeats().removeAll(existingUser.getSeats());
+                    bookingDTO.getSeats().removeAll(existingUser.getSeats()); // removing previous selected seats to avoid repeated info in the mail
                 } else {
                     logger.info("Saving the new user in the database...{}", bookingDTO.getUser());
                     User savedUser = userRepository.save(bookingDTO.getUser());
                     savedUser.setSeats(bookingDTO.getSeats());
                     logger.info("Saving seat mapping for the user in the database...");
-                    userRepository.save(savedUser);
+                    userRepository.save(savedUser); // directly saving the user with seats causes the seats to be inserted instead of update due to JPA CASCADE.ALL property
                 }
                 bookingDTO.getSeats().forEach(seat -> {
                     logger.info("Updating seat {}{} status to BOOKED", seat.getRowName(), seat.getNumber());
@@ -85,6 +102,10 @@ public class BookingServiceImpl implements BookingService {
         mailService.sendMail(mail);
     }
 
+    /**
+     * Reset booking for all users
+     * by removing mapping and updating seat status.
+     */
     @Override
     public void deleteBookingForAllUsers() {
         logger.info("Removing seat mapping from users");

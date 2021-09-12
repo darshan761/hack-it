@@ -19,6 +19,10 @@ import static org.mockito.Mockito.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Test for user CRUD operations
+ * @author darshan
+ */
 @SpringBootTest
 public class UserServiceTest {
     @Mock

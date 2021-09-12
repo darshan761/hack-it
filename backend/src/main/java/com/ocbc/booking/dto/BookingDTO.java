@@ -5,6 +5,10 @@ import com.ocbc.booking.model.User;
 
 import java.util.List;
 
+/**
+ * BookingDTO for getting data from UI
+ * @author darshan
+ */
 public class BookingDTO {
     private User user;
     private List<Seat> seats;
