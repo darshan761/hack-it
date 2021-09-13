@@ -6,6 +6,9 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SelectionSection from "../SelectionSection/SelectionSection";
 import UserForm from "../UserForm/UserForm";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
+
 
 export default class HomePage extends React.Component {
   constructor(props) {
@@ -18,6 +21,7 @@ export default class HomePage extends React.Component {
       availableSeats: [],
       selectedSeats: [],
       showPopup: false,
+      isLoading: true
     };
   }
 
@@ -40,6 +44,9 @@ export default class HomePage extends React.Component {
         });
 
         this.setState({ seats, rowToSeatMap, availableSeats });
+        this.setState({
+          isLoading: false
+        });
         // console.log(this.state.rowToSeatMap)
       })
       .catch((error) => {
@@ -107,7 +114,17 @@ export default class HomePage extends React.Component {
                 <center>SCREEN</center>
                 <hr />
               </div>
-              {Object.keys(this.state.rowToSeatMap).map((key) => (
+              { this.state.isLoading === true ?
+              <center>
+                <Loader
+                type="TailSpin"
+                color="#E10512"
+                height={80} 
+                width={80}
+              />
+              </center> 
+              :
+              Object.keys(this.state.rowToSeatMap).map((key) => (
                 <div className="row row-inner">
                   <div className="seat-row">{key}</div>
                   {this.state.rowToSeatMap[key].map((seat) =>

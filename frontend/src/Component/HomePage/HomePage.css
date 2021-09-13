@@ -160,12 +160,3 @@ input {
 img {
     width: 20%;
 }
-
-
-/* .seat-reserved::after {
-    content: 'RESERVED'
-}
-
-.seat-available::after {
-    content: 'AVAILABLE'
-} */
