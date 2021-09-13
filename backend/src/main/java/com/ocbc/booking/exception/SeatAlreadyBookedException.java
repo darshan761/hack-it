@@ -5,11 +5,13 @@ package com.ocbc.booking.exception;
  * @author darshan
  */
 public class SeatAlreadyBookedException extends RuntimeException{
-    private String message;
+    private final String message;
     public SeatAlreadyBookedException(String message) {
         super(message);
         this.message = message;
     }
-    public SeatAlreadyBookedException() {
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

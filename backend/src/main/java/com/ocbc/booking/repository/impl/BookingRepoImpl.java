@@ -5,6 +5,7 @@
 //import org.springframework.jdbc.core.JdbcTemplate;
 //import org.springframework.stereotype.Repository;
 //
+//Sample repository for using JdbcTemplate method
 //@Repository
 //public class BookingRepoImpl {
 //    @Autowired

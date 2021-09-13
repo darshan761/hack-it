@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends CrudRepository<User,Integer> {
     /**
      * Get user from its unique email attribute
-     * @param email
+     * @param email user's emailID
      * @return user if exists
      */
     @Query(Queries.GET_USER_BY_EMAIl)

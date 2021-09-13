@@ -5,11 +5,13 @@ package com.ocbc.booking.exception;
  * @author darshan
  */
 public class UserNotFoundException extends RuntimeException{
-    private String message;
+    private final String message;
     public UserNotFoundException(String message) {
         super(message);
         this.message = message;
     }
-    public UserNotFoundException() {
+    @Override
+    public String getMessage() {
+        return message;
     }
 }

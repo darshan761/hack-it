@@ -1,7 +1,6 @@
 package com.ocbc.booking.service.impl;
 
 import com.ocbc.booking.exception.UserNotFoundException;
-import com.ocbc.booking.model.Seat;
 import com.ocbc.booking.model.User;
 import com.ocbc.booking.repository.UserRepository;
 import com.ocbc.booking.service.UserService;

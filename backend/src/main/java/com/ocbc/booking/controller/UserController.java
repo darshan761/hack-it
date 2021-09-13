@@ -2,7 +2,6 @@ package com.ocbc.booking.controller;
 
 
 import com.ocbc.booking.config.SwaggerConfig;
-import com.ocbc.booking.model.Seat;
 import com.ocbc.booking.model.User;
 import com.ocbc.booking.service.UserService;
 import io.swagger.annotations.Api;

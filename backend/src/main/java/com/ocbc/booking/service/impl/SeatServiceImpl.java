@@ -1,11 +1,8 @@
 package com.ocbc.booking.service.impl;
 
 import com.ocbc.booking.exception.SeatNotFoundException;
-import com.ocbc.booking.exception.UserNotFoundException;
 import com.ocbc.booking.model.Seat;
-import com.ocbc.booking.model.User;
 import com.ocbc.booking.repository.SeatRepository;
-import com.ocbc.booking.repository.UserRepository;
 import com.ocbc.booking.service.SeatService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -44,8 +44,8 @@ public class BookingServiceImpl implements BookingService {
      * case 1. User is already present - updating its details.
      * case 2. User is new - saving to database.
      * case 3. Seat is already booked - throwing message to user.
-     * @param bookingDTO
-     * @throws SeatAlreadyBookedException
+     * @param bookingDTO bookingDTO
+     * @throws SeatAlreadyBookedException thrown if already booked
      */
     @Override
     public void bookSeats(BookingDTO bookingDTO) throws SeatAlreadyBookedException {
@@ -62,7 +62,7 @@ public class BookingServiceImpl implements BookingService {
                     logger.info("User {} already exists...updating details", existingUser.getName());
                     // updating the user details for the existing userId
                     bookingDTO.getUser().setUserId(existingUser.getUserId());
-                    bookingDTO.getSeats().addAll(existingUser.getSeats()); // updating previous selected seats for the user else will be overriden when saved
+                    bookingDTO.getSeats().addAll(existingUser.getSeats()); // updating previous selected seats for the user else will be overridden when saved
                     bookingDTO.getUser().setSeats(bookingDTO.getSeats());
                     logger.info("Saving user in the database...{}", bookingDTO.getUser());
                     userRepository.save(bookingDTO.getUser());

@@ -5,11 +5,13 @@ package com.ocbc.booking.exception;
  * @author darshan
  */
 public class JSONParseException extends Exception{
-    private String message;
+    private final String message;
     public JSONParseException(String message) {
         super(message);
         this.message = message;
     }
-    public JSONParseException() {
+    @Override
+    public String getMessage() {
+        return message;
     }
 }
