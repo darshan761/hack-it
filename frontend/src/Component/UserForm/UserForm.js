@@ -3,6 +3,9 @@ import http from "../../Service/http-common-service-call";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+/**
+ * UserForm for booking the seats
+ */
 export default class UserForm extends React.Component {
   constructor(props) {
     super(props);
@@ -15,6 +18,10 @@ export default class UserForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+  /**
+   * Setting the form inputs to the state variables
+   * @param {*} event recieved from input field
+   */
   handleChange(event) {
     let nam = event.target.name;
     let val = event.target.value;
@@ -23,6 +30,10 @@ export default class UserForm extends React.Component {
     });
   }
 
+  /**
+   * Calling the book API
+   * @param {*} event recieved from input field
+   */
   handleSubmit(event) {
     let req = { user: this.state, seats: this.props.selected };
     this.refs.book.setAttribute("disabled", "disabled");
@@ -50,8 +61,7 @@ export default class UserForm extends React.Component {
                 minlength="4"
                 placeholder="Name"
                 required
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}/>
             </div>
             <div className="form-group">
               <input
@@ -59,8 +69,7 @@ export default class UserForm extends React.Component {
                 name="email"
                 placeholder="Email"
                 required
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}/>
             </div>
             <div className="form-group">
               <input
@@ -69,23 +78,20 @@ export default class UserForm extends React.Component {
                 pattern="^\d{10}$"
                 placeholder="10 digits Mobile No"
                 required
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}/>
             </div>
             <div className="form-group">
               <input
                 ref="book"
                 className="btn btn-primary"
                 type="submit"
-                value="BOOK"
-              />
+                value="BOOK"/>
             </div>
             <div className="form-group">
               <input
                 className="btn btn-primary"
                 onClick={this.props.closePopup}
-                value="BACK"
-              />
+                value="BACK"/>
             </div>
           </form>
         </div>

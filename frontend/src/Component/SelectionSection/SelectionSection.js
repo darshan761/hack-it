@@ -1,5 +1,8 @@
 import React from "react";
 
+/**
+ * Selection Section for displaying the selected seats
+ */
 export default class SelectionSection extends React.Component {
   render() {
     return (
