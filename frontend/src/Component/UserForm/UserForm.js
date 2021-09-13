@@ -64,12 +64,10 @@ export default class UserForm extends React.Component {
             </div>
             <div className="form-group">
               <input
-                type="number"
+                type="tel"
                 name="mobileNumber"
-                filter="[^0-9]"
-                minlength="10"
-                maxLength="10"
-                placeholder="Mobile No"
+                pattern="^\d{10}$"
+                placeholder="10 digits Mobile No"
                 required
                 onChange={this.handleChange}
               />
