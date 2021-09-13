@@ -23,8 +23,20 @@ $ cd backend
 
 Use Intellij/Eclipse to setup the gradle project
 
+Add environment variables as per the credentials mentioned in the file later.
+
 Start the Spring Boot App - BookingApplication using run configuration --will start the backend server @localhost:8080
 
-## Swagger API documentation
+# Swagger API documentation
 
 https://hack-it-backend.herokuapp.com/swagger-ui.html
+
+# ReactJS Documentation
+frontend/docs/index.html
+
+
+# Credentials Access
+For accessing db and mail credentials included in spring-application.properties, request access below - 
+https://docs.google.com/document/d/1neBxYqaNylWms9XFxrQXjEn9_OP_A-VjfUViQzNuJAc/edit?usp=sharing
+
+### For any issues, reach out to - darshanpatil761@gmail.com
