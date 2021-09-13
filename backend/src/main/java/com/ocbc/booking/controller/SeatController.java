@@ -26,7 +26,7 @@ public class SeatController {
 
     @Autowired
     SeatService seatService;
-    
+
     @ApiOperation("Get all the seats")
     @GetMapping("")
     public List<Seat> getAllSeats() {
